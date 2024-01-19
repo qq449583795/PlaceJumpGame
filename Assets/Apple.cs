@@ -10,6 +10,7 @@ public class Apple : MonoBehaviour
     public UnityEvent OnGetReward;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        OnGetReward?.Invoke();
         Destroy(gameObject);
     }
 
