@@ -15,22 +15,22 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed;
     public float JumpSpeed;
     private bool isPressBtn;
-
-    public UnityEvent OnJumpDown;
-    public UnityEvent OnJumpUp;
+    //玩家脚下的trigger  判断踩到地板
+    private FootTrigger2D mFootTrigger2D;
 
     private void Awake()
     {
+        mFootTrigger2D = transform.GetChild(0).GetComponent<FootTrigger2D>();
         mRigidbody2D = GetComponent<Rigidbody2D>();
     }
     private float mHorizontal;
     private void Update()
     {
         mHorizontal = Input.GetAxis("Horizontal");
-       
-        if (Input.GetKeyDown(KeyCode.Space)&& mCollisionCount>0)
+        //
+        if (Input.GetKeyDown(KeyCode.Space) && mFootTrigger2D.IsTrigger)
         {
-            OnJumpUp?.Invoke();
+           
             if (jumpStat == JumpStats.NotJump)
             {
                 mJumpTime = 0;
@@ -92,14 +92,5 @@ public class PlayerController : MonoBehaviour
             mRigidbody2D.velocity += Physics2D.gravity * FallGrivityMultiplier * Time.deltaTime;
         }
     }
-    private int mCollisionCount = 0 ;
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        OnJumpDown?.Invoke();
-        mCollisionCount ++;
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        mCollisionCount --;
-    }
+    
 }
