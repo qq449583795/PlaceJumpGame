@@ -12,12 +12,16 @@ public class FootTrigger2D : MonoBehaviour
     public UnityEvent TriggerEnterEvent;
     public UnityEvent TriggerExitEvent;
 
+    public UnityEvent<Collider2D> TriggerEnterWithColliderEvent;
+    public UnityEvent<Collider2D> TriggerExitWithColliderEvent;
     //½Å²Èµ½µØÃæ
     public bool IsTrigger; 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (LayerMaskUtility.Contains(TrigerMask, collision.gameObject.layer))
         {
+            TriggerEnterWithColliderEvent?.Invoke(collision);
             m_Colliders.Add(collision);
             if (!IsTrigger && m_Colliders.Count > 0)
             {
@@ -32,6 +36,7 @@ public class FootTrigger2D : MonoBehaviour
     {
         if (LayerMaskUtility.Contains(TrigerMask, collision.gameObject.layer) )
         {
+            TriggerExitWithColliderEvent?.Invoke(collision);
             m_Colliders.Remove(collision);
             if (IsTrigger && m_Colliders.Count == 0)
             {

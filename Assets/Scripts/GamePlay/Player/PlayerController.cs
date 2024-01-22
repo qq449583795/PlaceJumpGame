@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     //玩家脚下的trigger  判断踩到地板
     private FootTrigger2D mFootTrigger2D;
 
+    public UnityEvent OnJumpUpEvent;
+    public UnityEvent OnJumpDownEvent;
     private void Awake()
     {
         mFootTrigger2D = transform.GetChild(0).GetComponent<FootTrigger2D>();
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
            
             if (jumpStat == JumpStats.NotJump)
             {
+                OnJumpUpEvent?.Invoke();
                 mJumpTime = 0;
                 jumpStat = JumpStats.MinJump;
                 isPressBtn = true;
