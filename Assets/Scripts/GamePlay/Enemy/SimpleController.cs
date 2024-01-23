@@ -43,7 +43,6 @@ public class SimpleController : MonoBehaviour
         {
             if (collider.CompareTag("Player")) {
                 collider.GetComponent<PlayerHit>().Hit();
-                collider.GetComponent <PlayerController>().enabled = false;
                 AttackPlayer(collider);
             }
         });
