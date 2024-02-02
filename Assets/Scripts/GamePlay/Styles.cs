@@ -15,4 +15,8 @@ public class Styles : MonoBehaviour
     {
         fontSize = 20
     });
+    public static Lazy<GUIStyle> BigLabel = new Lazy<GUIStyle>(() => new GUIStyle(GUI.skin.label)
+    {
+        fontSize = 40
+    });
 }

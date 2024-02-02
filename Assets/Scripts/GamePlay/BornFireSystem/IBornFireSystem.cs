@@ -22,7 +22,6 @@ namespace UTGM
             {
                 if (rule.Key == key)
                 {
-
                     return rule;
                 }
             }
@@ -33,6 +32,7 @@ namespace UTGM
         {
             BornFireRuleList.Add(new HPBar());
             BornFireRuleList.Add(new MaxHpPlus1());
+            BornFireRuleList.Add(new ReBornEnemy());
         }
     }
 }

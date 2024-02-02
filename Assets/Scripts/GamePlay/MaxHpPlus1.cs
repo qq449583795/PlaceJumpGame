@@ -20,11 +20,11 @@ public class MaxHpPlus1 : IBornFireRule
 
     public float NeedHealth { get; } = 10f;
 
-    public IBornFireRule Load()
+    
+    public void ReSet()
     {
-        return null;
+        IsUnLocked = false;
     }
-
     public void OnBornFireGUi()
     {
         if (!IsUnLocked&& mHpBar.Value.IsUnLocked)
@@ -64,6 +64,11 @@ public class MaxHpPlus1 : IBornFireRule
 
     public void Save()
     {
-        
+        PlayerPrefs.SetInt(nameof(MaxHpPlus1), IsUnLocked ? 1 : 0);
+    }
+    public IBornFireRule Load()
+    {
+        IsUnLocked = PlayerPrefs.GetInt(nameof(MaxHpPlus1),0) == 1 ? true : false;
+        return null;
     }
 }

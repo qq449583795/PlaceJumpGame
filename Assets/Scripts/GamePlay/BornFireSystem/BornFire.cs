@@ -23,12 +23,13 @@ public class BornFire : MonoBehaviour
         RemainingHealth -= Time.deltaTime;
         if (RemainingHealth<0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ApplePlatformer2D.IsGameOver = true;
         }
         if (mPlayerEnter)
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
+                ApplePlatformer2D.OnOpenBornFireUI.Trigger();
                 mPlayerPress = true;
             }
         }
@@ -73,5 +74,33 @@ public class BornFire : MonoBehaviour
                 fireRule.OnBornFireGUi();
             }
         }
+        if (ApplePlatformer2D.IsGameOver)
+        {
+            GUILayout.BeginArea(new Rect(0, Screen.height * 0.5f, Screen.width, Screen.height));
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label("游戏结束", Styles.BigLabel.Value);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("重新开始", Styles.BigLabel.Value))
+                {
+                    ApplePlatformer2D.ReSetGameData();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+                if (GUILayout.Button("回到主界面", Styles.BigLabel.Value))
+                {
+                    ApplePlatformer2D.ReSetGameData();
+                    SceneManager.LoadScene("GameStart");
+                }
+                GUILayout.FlexibleSpace();
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.EndArea();
+        }
+        
     }
 }

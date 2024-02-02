@@ -14,10 +14,7 @@ public class HPBar : IBornFireRule
     public string Key { get ; set ; }= nameof(HPBar);
     public bool IsUnLocked { get; set ; }
 
-    public IBornFireRule Load()
-    {
-        return null;
-    }
+   
 
     public void OnBornFireGUi()
     {
@@ -48,7 +45,10 @@ public class HPBar : IBornFireRule
     {
         
     }
-
+    public void ReSet()
+    {
+        IsUnLocked = false;
+    }
     public void OnTopRightGUI()
     {
         if (IsUnLocked)
@@ -59,8 +59,13 @@ public class HPBar : IBornFireRule
 
     public void Save()
     {
+        PlayerPrefs.SetInt(nameof(HPBar),IsUnLocked ?1:0);
     }
-
+    public IBornFireRule Load()
+    {
+        IsUnLocked = PlayerPrefs.GetInt(nameof(HPBar),0) == 1 ? true : false;
+        return null;
+    }
     // Start is called before the first frame update
-   
+
 }
